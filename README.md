@@ -1,5 +1,4 @@
 # React Ecommerce Website
-This is a basic react ecommerce website.
 
 ## What I learned
 *API fetch(axios)
