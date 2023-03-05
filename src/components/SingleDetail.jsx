@@ -90,7 +90,7 @@ const SingleDetail = () => {
           Available: <span>{stock ? "In stock" : "Out of stock"}</span>
         </p>
         <p className="id">
-          ID: <span>{unid}</span>
+          ID: <span>Manoj Baniya</span>
         </p>
         <p className="brand">
           Brand: <span>{company}</span>

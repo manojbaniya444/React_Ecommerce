@@ -39,11 +39,32 @@ const reducer = (state, action) => {
       if (state.sortingValue === "") {
         sortedData = action.payload;
       }
-
-      // console.log(sortedData);
       return {
         ...state,
         filteredProducts: sortedData,
+      };
+    }
+
+    case "SET_FILTER_TEXT": {
+      return {
+        ...state,
+        filters: { text: action.payload },
+      };
+    }
+
+    case "FILTER_PRODUCTS": {
+      let newProduct = [...state.allProducts];
+      const { text } = state.filters;
+
+      if(text){
+        newProduct = newProduct.filter((item)=>
+        {
+          return item.name.toLowerCase().includes(text);
+        })
+      }
+      return {
+        ...state,
+        filteredProducts:newProduct,
       };
     }
     default:

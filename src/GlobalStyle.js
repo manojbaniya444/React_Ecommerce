@@ -15,6 +15,7 @@ html{
     font-size: 3rem;
     margin: 2rem 0;
   }
+
 @media (max-width: ${({theme})=> theme.responsive.mobile}){
     html{
         font-size: 14px;

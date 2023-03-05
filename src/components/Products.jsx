@@ -9,9 +9,27 @@ import { MdViewList } from "react-icons/md";
 import { useGlobalContext } from "../context/productContext";
 const Products = () => {
   const [gridView, setGridview] = useState(true);
-  const {isLoading} = useGlobalContext();
-  const {filteredProducts,sortProducts} = useGlobalContextFilter();
+  const { isLoading } = useGlobalContext();
+  const { filteredProducts, sortProducts } = useGlobalContextFilter();
+
+  // const tempCategory = filteredProducts?.map((item) => {
+  //   return item.category;
+  // });
+
+  // const category = ["all", ...new Set(tempCategory)];
+
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  }
+  if (filteredProducts.length === 0) {
     return (
+      <>
+        <FilterSection />
+        <p className="loading">No products matched</p>
+      </>
+    );
+  }
+  return (
     <ProductWrapper>
       <FilterSection />
       <div className="double-flex">
@@ -54,13 +72,12 @@ const Products = () => {
 };
 
 const ProductWrapper = styled.div`
-.filter{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1rem 0;
-
-}
+  .filter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 0;
+  }
   .listGrid {
   }
   .icons {

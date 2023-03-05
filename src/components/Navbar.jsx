@@ -62,7 +62,7 @@ const Navlink = styled.ul`
     font-size: 1.5rem;
   }
   .openMenu {
-    display: none;
+    /* display: none; */
     color: white;
   }
   .hide-closemenu-ds {
@@ -106,8 +106,10 @@ const Navlink = styled.ul`
     .closeMenu-mv {
       display: block;
       position: absolute;
+      color: ${({ theme }) => theme.color.blue2};
       font-size: 3rem;
       top: 1rem;
+      z-index: 999;
       transition: 0.3s ease-in-out;
       cursor: pointer;
       &:hover {
