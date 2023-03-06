@@ -62,7 +62,7 @@ const Navlink = styled.ul`
     font-size: 1.5rem;
   }
   .openMenu {
-    /* display: none; */
+    display: none;
     color: white;
   }
   .hide-closemenu-ds {
