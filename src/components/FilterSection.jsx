@@ -4,12 +4,17 @@ import { useGlobalContextFilter } from "../context/filterContext";
 import { TiTick } from "react-icons/ti";
 
 const FilterSection = () => {
-  const [color, setColor] = useState(null);
+  // const [color, setColor] = useState(null);
 
   const {
     inputTextHandler,
     allProducts,
-    filters: { text },
+    categoryHandler,
+    color,
+    setColor,
+    setAllColor,
+    companyHandler,
+    filters: { text,category:categoryRename },
   } = useGlobalContextFilter();
 
   //category list
@@ -50,7 +55,11 @@ const FilterSection = () => {
           <div className="categories">
             {category?.map((item, index) => {
               return (
-                <p className="category-item" key={index}>
+                <p
+                  className={`${item===categoryRename?"category-item active-category":"category-item"}`}
+                  onClick={(e)=>categoryHandler(e)}
+                  key={index}
+                >
                   {item}
                 </p>
               );
@@ -60,8 +69,8 @@ const FilterSection = () => {
         <div className="color-filter-container">
           <h3 className="title">By Colors</h3>
           <div className="color-filter">
-            <p className="all" onClick={() => setColor(null)}>
-              All
+            <p className="all" onClick={(e)=> setAllColor(e)}>
+              all
             </p>
             <div className="color-container">
               {colors?.map((item, index) => {
@@ -69,6 +78,7 @@ const FilterSection = () => {
                   <div
                     key={index}
                     className="color-box"
+                    value={item}
                     style={{ backgroundColor: item }}
                     onClick={() => setColor(item)}
                   >
@@ -83,9 +93,9 @@ const FilterSection = () => {
         </div>
         <div className="company-filter-container">
           <h3 className="title">By Company</h3>
-          <form action="">
+          <form action="#">
             <label htmlFor="company"></label>
-            <select name="company" id="company">
+            <select name="company" id="company" onClick={(e)=>companyHandler(e)}>
               {companyList?.map((item, index) => {
                 return (
                   <option key={index} value={item}>
@@ -130,6 +140,9 @@ const Filter = styled.div`
         justify-content: space-between;
         gap: 0.82rem;
         margin-top: 0.4rem;
+        .active-category{
+          color:  ${({theme})=> theme.color.blue2};
+        }
         .category-item {
           cursor: pointer;
           border: 0.3px solid ${({ theme }) => theme.color.blue2};
@@ -147,60 +160,58 @@ const Filter = styled.div`
       }
     }
     @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
-
       align-items: baseline;
       justify-content: space-around;
       /* justify-content: space-around; */
-
-      }
-      /* This is inside color filter container */
-      .title{
-@media (max-width: ${({theme})=> theme.responsive.mobile}){
-  text-align: center;
-}
-      }
-  .color-filter {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    .all {
-      cursor: pointer;
-      border: 1px dotted black;
-      padding: 8px 13px;
-      border-radius: 50%;
     }
-    .color-container {
+    /* This is inside color filter container */
+    .title {
+      @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
+        text-align: center;
+      }
+    }
+    .color-filter {
       display: flex;
-      .color-box {
-        /* display: flex; */
-        margin-right: 0.3em;
+      align-items: center;
+      gap: 1rem;
+      .all {
+        cursor: pointer;
+        border: 1px dotted black;
         padding: 8px 13px;
         border-radius: 50%;
-        opacity: 0.7;
-        cursor: pointer;
-        &:hover {
-          opacity: 1;
+      }
+      .color-container {
+        display: flex;
+        .color-box {
+          /* display: flex; */
+          margin-right: 0.3em;
+          padding: 8px 13px;
+          border-radius: 50%;
+          opacity: 0.7;
+          cursor: pointer;
+          &:hover {
+            opacity: 1;
+          }
+          .tick {
+            color: white;
+            opacity: 0;
+          }
+          .active {
+            opacity: 1;
+          }
         }
-        .tick {
-          color: white;
-          opacity: 0;
-        }
-        .active {
-          opacity: 1;
+        @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
+          /* flex-direction: column; */
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.82rem;
         }
       }
       @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
-        /* flex-direction: column; */
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: .82rem;
+        flex-direction: column;
       }
     }
-    @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
-      flex-direction: column;
-    }
   }
-}
 `;
 
 export default FilterSection;

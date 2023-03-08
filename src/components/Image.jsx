@@ -8,7 +8,7 @@ const Image = ({image}) => {
     <Wrapper>
       <div className="image-four">
         {image?.map((item, index) => {
-          console.log(item, "image item")
+          // console.log(item, "image item")
           const { url, id } = item;
           return (
             <figure key={index}>

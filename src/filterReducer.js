@@ -41,30 +41,72 @@ const reducer = (state, action) => {
       }
       return {
         ...state,
-        filteredProducts: sortedData,
+        filteredProducts: [...sortedData],
       };
     }
 
+    //setting the filter value start
     case "SET_FILTER_TEXT": {
       return {
         ...state,
-        filters: { text: action.payload },
+        filters: { ...state.filters, text: action.payload },
+      };
+    }
+    case "SET_CATEGORY_TEXT": {
+      return {
+        ...state,
+        filters: { ...state.filters, category: action.payload },
+      };
+    }
+    case "SET_COLOR": {
+      return {
+        ...state,
+        color: action.payload,
+        filters: { ...state.filters, colored: action.payload },
       };
     }
 
+    case "SET_COLOR_ALL": {
+      return {
+        ...state,
+        color: null,
+        filters: {
+          ...state.filters,
+          colored: action.payload,
+        },
+      };
+    }
+    case "SET_COMPANY": {
+      return {
+        ...state,
+        filters: { ...state.filters, company: action.payload },
+      };
+    }
+    //setting filter value end
+
     case "FILTER_PRODUCTS": {
       let newProduct = [...state.allProducts];
-      const { text } = state.filters;
+      // console.log(state.allProducts);
+      const { text, category, colored, company } = state.filters;
+      // console.log(company);
 
-      if(text){
-        newProduct = newProduct.filter((item)=>
-        {
+      if (text) {
+        newProduct = newProduct.filter((item) => {
           return item.name.toLowerCase().includes(text);
-        })
+        });
+      }
+      if (category !== "all") {
+        newProduct = newProduct.filter((item) => item.category === category);
+      }
+      if (colored !== "all") {
+        newProduct = newProduct.filter((item) => item.colors.includes(colored));
+      }
+      if (company !== "all") {
+        newProduct = newProduct.filter((item) => item.company === company);
       }
       return {
         ...state,
-        filteredProducts:newProduct,
+        filteredProducts: newProduct,
       };
     }
     default:
