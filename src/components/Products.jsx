@@ -49,7 +49,7 @@ const Products = () => {
           </div>
           <div className="sort">
             <form action="#">
-              <label htmlFor="product">Sort products</label>
+              <label htmlFor="product"></label>
               <select name="product" id="product" onClick={sortProducts}>
                 <option value="#" disabled></option>
                 <option value="a-z">name a-z</option>

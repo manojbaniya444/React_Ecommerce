@@ -14,7 +14,7 @@ const FilterSection = () => {
     setColor,
     setAllColor,
     companyHandler,
-    filters: { text,category:categoryRename },
+    filters: { text, category: categoryRename },
   } = useGlobalContextFilter();
 
   //category list
@@ -56,8 +56,12 @@ const FilterSection = () => {
             {category?.map((item, index) => {
               return (
                 <p
-                  className={`${item===categoryRename?"category-item active-category":"category-item"}`}
-                  onClick={(e)=>categoryHandler(e)}
+                  className={`${
+                    item === categoryRename
+                      ? "category-item active-category"
+                      : "category-item"
+                  }`}
+                  onClick={(e) => categoryHandler(e)}
                   key={index}
                 >
                   {item}
@@ -69,7 +73,7 @@ const FilterSection = () => {
         <div className="color-filter-container">
           <h3 className="title">By Colors</h3>
           <div className="color-filter">
-            <p className="all" onClick={(e)=> setAllColor(e)}>
+            <p className="all" onClick={(e) => setAllColor(e)}>
               all
             </p>
             <div className="color-container">
@@ -95,7 +99,11 @@ const FilterSection = () => {
           <h3 className="title">By Company</h3>
           <form action="#">
             <label htmlFor="company"></label>
-            <select name="company" id="company" onClick={(e)=>companyHandler(e)}>
+            <select
+              name="company"
+              id="company"
+              onClick={(e) => companyHandler(e)}
+            >
               {companyList?.map((item, index) => {
                 return (
                   <option key={index} value={item}>
@@ -140,8 +148,8 @@ const Filter = styled.div`
         justify-content: space-between;
         gap: 0.82rem;
         margin-top: 0.4rem;
-        .active-category{
-          color:  ${({theme})=> theme.color.blue2};
+        .active-category {
+          color: ${({ theme }) => theme.color.blue2};
         }
         .category-item {
           cursor: pointer;

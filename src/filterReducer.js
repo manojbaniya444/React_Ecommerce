@@ -8,8 +8,6 @@ const reducer = (state, action) => {
       };
 
     case "SORT": {
-      // let userSortValue = document.getElementById("product");
-      // let sortvalue = userSortValue.options[userSortValue.selectedIndex].value;
       let sortvalue = action.payload;
       return {
         ...state,
@@ -19,7 +17,8 @@ const reducer = (state, action) => {
 
     case "SORTING_PRODUCTS": {
       let sortedData;
-      let tempSortData = [...action.payload];
+      const { filteredProducts } = state;
+      let tempSortData = [...filteredProducts];
       if (state.sortingValue === "z-a") {
         sortedData = tempSortData
           .slice()
@@ -37,11 +36,11 @@ const reducer = (state, action) => {
         sortedData = tempSortData.slice().sort((a, b) => b.price - a.price);
       }
       if (state.sortingValue === "") {
-        sortedData = action.payload;
+        sortedData = filteredProducts;
       }
       return {
         ...state,
-        filteredProducts: [...sortedData],
+        filteredProducts: sortedData,
       };
     }
 
@@ -85,10 +84,9 @@ const reducer = (state, action) => {
     //setting filter value end
 
     case "FILTER_PRODUCTS": {
-      let newProduct = [...state.allProducts];
-      // console.log(state.allProducts);
+      let { allProducts } = state;
+      let newProduct = [...allProducts];
       const { text, category, colored, company } = state.filters;
-      // console.log(company);
 
       if (text) {
         newProduct = newProduct.filter((item) => {
