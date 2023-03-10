@@ -35,10 +35,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: "SET_CART_DETAILS", payload: cartDetails });
   };
 
-  const removeHandler = (id) =>
+  const removeHandler = (id ,color) =>
   {
     console.log("hello" + id)
-    dispatch({type:"REMOVE_ITEM_CART",payload: id})
+    dispatch({type:"REMOVE_ITEM_CART",payload: id + color})
   }
   useEffect(() => {
     getProducts(API);

@@ -55,9 +55,7 @@ const Cart = () => {
         <a href="#" onClick={() => setDisplayModal(true)}>
           Khalti
         </a>
-        <a href="#" onClick={() => setDisplayModal(true)}>
-          ConnectIPS
-        </a>
+        <a href="https://connectips.com/">ConnectIPS</a>
       </div>
     </CartDiv>
   );

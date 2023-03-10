@@ -22,14 +22,9 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === "SET_CART_DETAILS") {
-    // let newD = action.payload;
-    // newD = {
-    //   ...newD,
-    //   id: newD.id + newD.color,
-    // };
     return {
       ...state,
-      cartProducts: [...state.cartProducts, action.payload],
+      cartProducts: [...state.finalCartProducts, action.payload],
       cartDet: action.payload,
     };
   }
@@ -44,8 +39,8 @@ const reducer = (state, action) => {
   if (action.type === "REMOVE_ITEM_CART") {
     let temp = state.finalCartProducts;
 
-    let updated = temp.filter((item) => item.id !== action.payload);
-    console.log(updated)
+    let updated = temp.filter((item) => item.id + item.color !== action.payload);
+    console.log(updated);
     return {
       ...state,
       finalCartProducts: updated,

@@ -42,7 +42,7 @@ const SingleCartItem = ({ item, total }) => {
           <p className="color-title">Color:</p>
 
           <span className="color" style={{ backgroundColor: color }}></span>
-          <button className="button" onClick={() => removeHandler(id)}>
+          <button className="button" onClick={() => removeHandler(id, color)}>
             Remove Item
           </button>
         </div>
