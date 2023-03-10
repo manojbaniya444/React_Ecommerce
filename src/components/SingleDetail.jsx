@@ -15,15 +15,14 @@ const SingleDetail = () => {
   const [singleData, setSingleData] = useState({});
   const [color, setColor] = useState();
   const { id } = useParams();
-  const { isLoading, isError } =
-    useGlobalContext();
+  const { isLoading, isError } = useGlobalContext();
 
   const fetchingSingleData = async () => {
     const res = await axios.get(
       `https://api.pujakaitem.com/api/products?id=${id}`
     );
     const data = await res.data;
-    console.log(data, "single product detau");
+    // console.log(data, "single product detau");
     setSingleData(data);
   };
   useEffect(() => {
@@ -34,7 +33,7 @@ const SingleDetail = () => {
     category,
     company,
     description,
-    id: unid,
+    id:unid,
     image,
     name,
     colors,
@@ -44,6 +43,7 @@ const SingleDetail = () => {
     reviews,
     shipping,
   } = singleData;
+  // console.log(colors)
   if (!image?.length || isLoading) {
     return (
       <div>
@@ -114,7 +114,7 @@ const SingleDetail = () => {
             );
           })}
         </div>
-        <AddCart stock={stock} />
+        <AddCart stock={stock} color={color?color:colors[0]} image={image[0].url} name={name} price={price} id={id}/>
       </div>
     </Detail>
   );

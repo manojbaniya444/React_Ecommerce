@@ -22,7 +22,7 @@ const Navbar = () => {
         <Link className="li" to="/contact" onClick={() => setOpenMenu(false)}>
           <li>Contact</li>
         </Link>
-        <Link className="li" onClick={() => setOpenMenu(false)}>
+        <Link to="/cart" className="li" onClick={() => setOpenMenu(false)}>
           <BsCart3 />
         </Link>
       </div>

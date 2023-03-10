@@ -1,20 +1,45 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useGlobalContext } from "../context/productContext";
 import { Link } from "react-router-dom";
 import { GrAdd } from "react-icons/gr";
 import { GrSubtract } from "react-icons/gr";
 
-const AddCart = ({ stock }) => {
+const AddCart = ({ stock, image, color, name, price, id }) => {
   const [amount, setAmount] = useState(1);
+  const [maxStock, setMaxStock] = useState(false);
+
+  const { submitHandler } = useGlobalContext();
   const increaseHandler = () => {
-    if (amount <= stock) setAmount(amount + 1);
+    if (amount === stock) {
+      setMaxStock(true);
+    }
+    if (amount <= stock) {
+      setAmount(amount + 1);
+    }
   };
   const decreaseHandler = () => {
-    if (amount > 1) setAmount(amount - 1);
+    if (amount > 1) {
+      setAmount(amount - 1);
+    }
+
+    if (amount === stock) {
+      setMaxStock(false);
+    }
+  };
+  //Packing necessary data to pass to cart component
+  let cartDetails = {
+    id: id,
+    amount: amount,
+    image: image,
+    color: color,
+    name: name,
+    price: price,
+    stock: stock,
   };
   return (
     <Wrapper>
-      <div className="control">
+      {/* <div className="control">
         <button className="decrease" onClick={decreaseHandler}>
           <GrSubtract />
         </button>
@@ -22,16 +47,29 @@ const AddCart = ({ stock }) => {
         <button className="increase" onClick={increaseHandler}>
           <GrAdd />
         </button>
-      </div>
+      </div> */}
+
+      {maxStock && <p className="max-stock">Max stock reached</p>}
+      {!maxStock && <p className="in-stock">In stock</p>}
 
       <Link to="/cart">
-        <button className="cart-btn">Add to cart</button>
+        <button className="cart-btn" onClick={() => submitHandler(cartDetails)}>
+          Add to cart
+        </button>
       </Link>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  .max-stock {
+    color: red;
+    margin-left: 10px;
+  }
+  .in-stock {
+    color: green;
+    margin-left: 10px;
+  }
   .cart-btn {
     background-color: ${({ theme }) => theme.color.blue1};
     color: white;

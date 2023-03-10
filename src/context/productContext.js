@@ -11,6 +11,9 @@ const initialState = {
   products: [],
   featuredProducts: [],
   filteredProducts: [],
+  cartProducts: [],
+  finalCartProducts: [],
+  cartDet: {},
 };
 
 const AppProvider = ({ children }) => {
@@ -28,12 +31,27 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const submitHandler = (cartDetails) => {
+    dispatch({ type: "SET_CART_DETAILS", payload: cartDetails });
+  };
+
+  const removeHandler = (id) =>
+  {
+    console.log("hello" + id)
+    dispatch({type:"REMOVE_ITEM_CART",payload: id})
+  }
   useEffect(() => {
     getProducts(API);
   }, []);
 
+  //Test
+
+  useEffect(() => {
+    dispatch({ type: "DUPLICATE_ITEM_FILTER", payload: state.cartProducts });
+  }, [state.cartProducts]);
+
   return (
-    <AppContext.Provider value={{ ...state }}>
+    <AppContext.Provider value={{ ...state, submitHandler,removeHandler }}>
       {children}
     </AppContext.Provider>
   );
